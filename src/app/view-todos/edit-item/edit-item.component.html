@@ -1,0 +1,74 @@
+<div *ngIf="item">
+  <div [hidden]="submitted" style="width: 300px;">
+  <form #customForm="ngForm" (ngSubmit)="onSubmit()">
+    <div class="form-control">
+      <label>id: </label> {{item.key}}
+    </div>
+    <label for="nombres">nombres: </label>
+    <input type="text" class="form-control" name="nombres"
+       ngModel="{{item.nombres}}" #nombres="ngModel" required>
+    <div *ngIf="nombres.invalid && (nombres.dirty || nombres.touched)"
+       class="alert alert-danger">   
+      <div class="alert alert-danger" *ngIf="nombres.errors.required ">
+        requerido
+      </div>
+    </div>
+    <label for="apellidos">apellidos: </label>
+    <input type="text" class="form-control" name="apellidos"
+      ngModel="{{item.apellidos}}" #apellidos="ngModel" required>
+      <div *ngIf="apellidos.invalid && (apellidos.dirty || apellidos.touched)"
+      class="alert alert-danger"> 
+        <div class="alert alert-danger" *ngIf="apellidos.errors.required ">
+            requerido
+        </div>
+      </div>  
+      <br>
+      <div class="form-control">
+          <label>cedula: </label> {{item.cedula}}
+        </div> 
+    <label for="telefono">telefono: </label>
+    <input type="number" class="form-control" name="tel"
+    ngModel="{{item.tel}}" #tel="ngModel" required>
+    <div *ngIf="tel.invalid && (tel.dirty || tel.touched)">
+        <div class="alert alert-danger" *ngIf="tel.errors.required ">
+            requerido
+        </div>        
+     </div> 
+    <label for="mail">mail: </label>
+    <input type="email" class="form-control" name="mail"
+      ngModel="{{item.mail}}" #mail="ngModel" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required>
+      <div *ngIf="mail.invalid && (mail.dirty || mail.touched)">
+        <div class="alert alert-danger" *ngIf="mail.errors.required ">
+            requerido
+        </div>
+        <p class="alert alert-danger" *ngIf="mail.errors?.pattern">No es un Email valido!!!</p>
+      </div>
+      <button type="submit" class="btn btn-success" [disabled]="!customForm.form.valid">Editar</button>  
+</form>
+</div>
+  <div [hidden]="!submitted" class="success alert-success">
+    <h4>guardado exitoso!</h4>
+  </div>
+  <div [hidden]="isVal" class="alert alert-danger">
+      no se permite mail o cedulas repetidas
+  </div>
+</div>
+<!--
+      <div>
+      <label>id </label> {{item.key}}
+    </div>
+    <div>
+      <label>nombres: </label> {{item.nombres}}
+    </div>
+    <div>
+      <label>apellidos: </label> {{item.apellidos}}
+    </div>
+   
+    <span class="button is-small btn-primary" *ngIf='item.active' (click)='updateActive(false)'>Inactive</span>
+   
+    <span class="button is-small btn-primary" *ngIf='!item.active' (click)='updateActive(true)'>Active</span>
+   
+    <span class="button is-small btn-danger" (click)='deleteCustomer()'>Delete</span>
+   
+    <hr/>
+-->

@@ -1,0 +1,105 @@
+<!--
+<h3>Create Customer</h3>
+<div [hidden]="submitted" style="width: 300px;">
+  <form (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="id">id</label>
+      <input type="number" class="form-control" id="id" required [(ngModel)]="id" name="id">      
+    </div> 
+    <div class="form-group">
+      <label for="title">title</label>
+      <input type="text" class="form-control" id="title" required [(ngModel)]="title" name="title">
+    </div>
+    <div class="form-group">
+      <label for="nombres">nombres: </label>
+      <input type="text" required ngModel name="nombres" #name="ngModel">
+      <div *ngIf="nombres.invalid" class="alert alert-danger">
+        Nombres es requerido
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="apellidos">apellidos: </label>
+      <input type="text" class="form-control" id="apellidos" required [(ngModel)]="apellidos" name="apellidos">
+    </div>
+    <div class="form-group">
+      <label for="cedula">cedula: </label>
+      <input type="number" class="form-control" id="cedula" required [(ngModel)]="cedula" name="cedula">
+    </div>
+    <div>
+      <label for="mail">correo: </label>
+      <input type="email" class="form-control" id="mail" required [(ngModel)]="mail" name="mail">
+    </div>
+ 
+    <button type="submit" class="btn btn-success">Submit</button>
+  </form>
+</div>
+ 
+<div [hidden]="!submitted">
+  <h4>guardado exitoso!</h4>
+  <button class="btn btn-success" (click)="newCustomer()">Add</button>
+</div>
+
+-->
+<h3>Create</h3>
+<div [hidden]="submitted" style="width: 300px;">
+<form #customForm="ngForm" (ngSubmit)="onSubmit(customForm.form)">
+    <label for="nombres">nombres: </label>
+    <input type="text" class="form-control" name="nombres"
+       ngModel #nombres="ngModel" required>
+    <div *ngIf="nombres.invalid && (nombres.dirty || nombres.touched)"
+       class="alert alert-danger">   
+      <div class="alert alert-danger" *ngIf="nombres.errors.required ">
+        requerido
+      </div>
+    </div>
+    <label for="apellidos">apellidos: </label>
+    <input type="text" class="form-control" name="apellidos"
+      ngModel #apellidos="ngModel" required>
+      <div *ngIf="apellidos.invalid && (apellidos.dirty || apellidos.touched)"
+      class="alert alert-danger"> 
+        <div class="alert alert-danger" *ngIf="apellidos.errors.required ">
+            requerido
+        </div>
+      </div>  
+    <label for="cedula">cedula: </label>    
+    <input type="number" class="form-control" name="cedula"
+      ngModel #cedula="ngModel" required minlength="1000" onchange="">
+    <div #iscedula *ngIf="cedula.invalid && (cedula.dirty || cedula.touched)"
+      class="alert alert-danger">   
+      <div class="alert alert-danger" *ngIf="cedula.errors.required ">
+            requerido
+      </div>
+      <div class="alert alert-danger" *ngIf="cedula.errors.minlength">
+          cedula debe ser mayor de 4 digitos
+      </div>      
+    </div>  
+    <label for="telefono">telefono: </label>
+    <input type="number" class="form-control" name="tel"
+    ngModel #tel="ngModel" required minlength="1000000">
+    <div *ngIf="tel.invalid && (tel.dirty || tel.touched)">
+        <div class="alert alert-danger" *ngIf="tel.errors.required ">
+            requerido
+        </div>
+        <div class="alert alert-danger" *ngIf="tel.errors.minlength">
+            telefono debe ser mayor de 7 digitos
+        </div>        
+     </div> 
+    <label for="mail">mail: </label>
+    <input type="email" class="form-control" name="mail"
+      ngModel #mail="ngModel" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required>
+      <div *ngIf="mail.invalid && (mail.dirty || mail.touched)">
+        <div class="alert alert-danger" *ngIf="mail.errors.required ">
+            requerido
+        </div>
+        <p class="alert alert-danger" *ngIf="mail.errors?.pattern">No es un Email valido!!!</p>
+      </div>
+      <button type="submit" class="btn btn-success" [disabled]="!customForm.form.valid">Submit</button>  
+</form>
+</div>
+<div [hidden]="isVal" class="alert alert-danger">
+ mail o cedula ya se encuentran registrados
+</div>
+<div [hidden]="!submitted">
+    <h4>guardado exitoso!</h4>
+    <button class="btn btn-success" (click)="newCustomer()">Add User</button>
+  </div>

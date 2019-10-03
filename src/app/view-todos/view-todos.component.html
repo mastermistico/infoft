@@ -1,0 +1,19 @@
+<h1>Users</h1>
+<div *ngFor="let user of users" style="width: 300px;">
+  <div *ngIf="!edit">
+      <label>id: </label> {{user.key}}
+      <br>
+      <label class="label">nombres </label> {{user.nombres}}
+      <br>
+      <label class="label">apellidos </label> {{user.apellidos}}
+      <br>
+      <label class="label">cedula </label> {{user.cedula}}
+      <br>
+      <label class="label">telefono </label> {{user.tel}}
+      <br>
+      <label class="label">mail </label> {{user.mail}}
+      <br><br>
+      <button class="btn btn-primary active" (click)="isEdit()">Editar</button>      
+  </div>
+  <app-edit-item *ngIf="edit" [item]='user'></app-edit-item>
+</div>
